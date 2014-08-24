@@ -70,7 +70,7 @@ namespace WeatherApp.DTO
         #region Private 
 
         /// <summary>
-        /// Raise the PropertyChanged event and pass along the property that changed
+        /// Raise the PropertyChanged event and pass along the property that changed.
         /// </summary>
         private void NotifyPropertyChanged(string property)
         {
