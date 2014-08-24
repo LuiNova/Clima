@@ -483,7 +483,7 @@ namespace WeatherApp
                 // there was some kind of error processing the response from the web
                 // additional error handling would normally be added here
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
+                { 
                     MessageBox.Show("Weather for your location cannot be retrived. Please change location and try again.", "Try Again!", MessageBoxButton.OK);
                     Loaded = true;
                 }); 
