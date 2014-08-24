@@ -486,7 +486,7 @@ namespace WeatherApp
                 {
                     MessageBox.Show("Weather for your location cannot be retrived. Please change location and try again.", "Try Again!", MessageBoxButton.OK);
                     Loaded = true;
-                });
+                }); 
                 return;
             }
             catch (Exception ex)
