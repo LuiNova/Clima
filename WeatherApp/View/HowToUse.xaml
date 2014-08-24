@@ -1,0 +1,250 @@
+﻿<UserControl x:Class="WeatherApp.View.HowToUse"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:WeatherApp.View"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    >
+    <UserControl.Resources>
+        <!-- Styles -->
+
+        <LinearGradientBrush x:Key="ClimaBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#f36412" Offset="0.0" />
+            <GradientStop Color="#f38912" Offset="0.071" />
+            <GradientStop Color="#f3af12" Offset="0.142" />
+            <GradientStop Color="#f3d412" Offset="0.213" />
+            <GradientStop Color="#f6de4a" Offset="0.284" />
+            <GradientStop Color="#f9e882" Offset="0.355" />
+            <GradientStop Color="#fcf2ba" Offset="0.426" />
+            <GradientStop Color="White" Offset="0.497" />
+            <GradientStop Color="#e7f2fa" Offset="0.568" />
+            <GradientStop Color="#c7e1f3" Offset="0.639" />
+            <GradientStop Color="#a7d0ec" Offset="0.71" />
+            <GradientStop Color="#87bfe4" Offset="0.781" />
+            <GradientStop Color="#67aedd" Offset="0.852" />
+            <GradientStop Color="#479dd6" Offset="0.923" />
+            <GradientStop Color="#2980b9" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <!-- Solid Color Brushes : Source - FlatUIColors.com, Gradient Source - colorhexa.com -->
+        <SolidColorBrush x:Key="warm7" Color="#f36412" />
+        <SolidColorBrush x:Key="warm6" Color="#f38912" />
+        <SolidColorBrush x:Key="warm5" Color="#f3af12" />
+        <SolidColorBrush x:Key="warm4" Color="#f3d412" />
+        <SolidColorBrush x:Key="warm3" Color="#f6de4a" />
+        <SolidColorBrush x:Key="warm2" Color="#f9e882" />
+        <SolidColorBrush x:Key="warm" Color="#fcf2ba" />
+        <SolidColorBrush x:Key="white" Color="White" />
+        <SolidColorBrush x:Key="cool" Color="#e7f2fa" />
+        <SolidColorBrush x:Key="cool2" Color="#c7e1f3" />
+        <SolidColorBrush x:Key="cool3" Color="#a7d0ec" />
+        <SolidColorBrush x:Key="cool4" Color="#87bfe4" />
+        <SolidColorBrush x:Key="cool5" Color="#67aedd" />
+        <SolidColorBrush x:Key="cool6" Color="#479dd6" />
+        <SolidColorBrush x:Key="cool7" Color="#2980b9" />
+        <!-- Solid Color Brushes End -->
+        <SolidColorBrush x:Key="btifulPurple" Color="#563d7c" />
+
+        <!-- TextBlock -->
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontSize" Value="100" />
+        </Style>
+        <!-- TextBlock End -->
+
+        <!-- Button -->
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+        <!-- Button End -->
+
+        <!-- Styles End -->
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.RowSpan="5" Background="{Binding CurrentForecast.CurrentTemperature.BrushColorString}" />
+            <Border Grid.Row="5" Background="{StaticResource ClimaBackgroundBrush}" />
+            <!--<Border Grid.Row="2" Background="{StaticResource warm7}" />
+            <Border Grid.Row="4" Background="{StaticResource cool7}" />-->
+            <!--<StackPanel Grid.Row="0">
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Source="../Icons/clima256.png"
+                    Height="256"
+                    Width="256"
+                    />
+                <TextBlock
+                    Grid.Row="1"
+                    Text="by Btiful"
+                    FontSize="14"
+                    Foreground="Black"
+                    />
+            </StackPanel>-->
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Source="../Icons/clima128.png"
+                        Height="128"
+                        Width="128"
+                        />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="by Btiful"
+                        FontSize="14"
+                        Foreground="{StaticResource btifulPurple}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        />
+                </Grid>
+                <StackPanel 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    >
+                    <TextBlock
+                        Text="The Weather Experience Reimagined"
+                        Foreground="Black" 
+                        FontSize="20"
+                        />
+                    <TextBlock 
+                        Text="Don't Just Read The Weather"
+                        Foreground="Black" 
+                        FontSize="20"
+                        />
+                    <TextBlock
+                        Text="Feel The Weather!"
+                        Foreground="Black" 
+                        FontSize="20"
+                        />
+                </StackPanel>
+            </Grid>
+            <!--<Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Source="../Icons/clima128.png"
+                Height="128"
+                Width="128"
+                />-->
+            <!--<TextBlock
+                Grid.Row="0"
+                Text="by Btiful"
+                FontSize="14"
+                Foreground="{StaticResource btifulPurple}"
+                HorizontalAlignment="Right"
+                />-->
+            <!--<TextBlock 
+                Grid.Row="2"
+                Text="The Weather Experience Reimagined"
+                Foreground="Black" 
+                FontSize="20"
+                />
+            <TextBlock 
+                Grid.Row="3"
+                Text="Don't Just Read The Weather"
+                Foreground="Black" 
+                FontSize="20"
+                />
+            <TextBlock 
+                Grid.Row="4"
+                Text="Feel The Weather!"
+                Foreground="Black" 
+                FontSize="20"
+                />-->
+            <ScrollViewer
+                Grid.Row="5"
+                Grid.Column="0"
+                HorizontalScrollBarVisibility="Auto"
+                >
+                <views:HourlyForecast
+                    x:Name="ucHourlyForecast"
+                    DataContext="{Binding }"
+                    />
+            
+            <!--<StackPanel 
+                Grid.Row="5"
+                Grid.Column="0"
+                >
+                <TextBlock 
+                    Text="How To Use Clima hjdfhjghfjghfjghfjg jdfhdjfdhfj Hello"
+                    Foreground="Black" 
+                    FontSize="30"
+                    Margin="5,20,5,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    />
+                <TextBlock 
+                    Text="1. View Current Temperature"
+                    Foreground="Black" 
+                    FontSize="18"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="20,0,0,0"
+                    />
+                <TextBlock 
+                    Text="2. Hold To View Max And Min"
+                    Foreground="Black" 
+                    FontSize="18"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="20,0,0,0"
+                    />
+                <TextBlock 
+                    Text="3. Swipe To View Weekly Forecast"
+                    Foreground="Black" 
+                    FontSize="18"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="20,0,0,0"
+                    />
+            </StackPanel>-->
+            </ScrollViewer>
+            <TextBlock
+                Grid.Row="6"
+                Text="Powered by ForecastIO and World Weather Online"
+                FontSize="12"
+                Foreground="{StaticResource btifulPurple}"
+                />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,353 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WeatherApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:WeatherApp.View"
+    xmlns:converters="clr-namespace:WeatherApp.Converters;assembly=WeatherApp"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <!-- Converters -->
+        <converters:BoolVisibilityConverter x:Key="bool2Vis" />
+        <converters:BoolVisibilityInverseConverter x:Key="bool2VisInverse" />
+        <converters:BoolHeightConverter x:Key="bool2Height" />
+        <converters:BoolInerseConverter x:Key="bool2Inverse" />
+        <!-- Converters End --> 
+        
+        <!-- Solid Color Brushes : Source - FlatUIColors.com, Gradient Source - colorhexa.com -->
+        <SolidColorBrush x:Key="warm7" Color="#f36412" />
+        <SolidColorBrush x:Key="warm6" Color="#f38912" />
+        <SolidColorBrush x:Key="warm5" Color="#f3af12" />
+        <SolidColorBrush x:Key="warm4" Color="#f3d412" />
+        <SolidColorBrush x:Key="warm3" Color="#f6de4a" />
+        <SolidColorBrush x:Key="warm2" Color="#f9e882" />
+        <SolidColorBrush x:Key="warm" Color="#fcf2ba" />
+        <SolidColorBrush x:Key="white" Color="White" />
+        <SolidColorBrush x:Key="cool" Color="#e7f2fa" />
+        <SolidColorBrush x:Key="cool2" Color="#c7e1f3" />
+        <SolidColorBrush x:Key="cool3" Color="#a7d0ec" />
+        <SolidColorBrush x:Key="cool4" Color="#87bfe4" />
+        <SolidColorBrush x:Key="cool5" Color="#67aedd" />
+        <SolidColorBrush x:Key="cool6" Color="#479dd6" />
+        <SolidColorBrush x:Key="cool7" Color="#2980b9" />
+        <!-- Solid Color Brushes End -->
+        <SolidColorBrush x:Key="btifulPurple" Color="#563d7c" />
+        
+        <!-- Styles -->
+        
+        <!-- TextBlock -->
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontSize" Value="100" />
+        </Style>
+        <!-- TextBlock End -->
+        
+        <!-- Button -->
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+        <!-- Button End -->
+        
+        <!-- Styles End -->
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Canvas x:Name="canvas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="{Binding ScreenHeight}" Background="White" ManipulationStarted="canvas_ManipulationStarted" ManipulationDelta="canvas_ManipulationDelta" ManipulationCompleted="canvas_ManipulationCompleted" DoubleTap="canvas_DoubleTap">
+        <Canvas.Resources>
+            <Storyboard x:Name="moveAnimation">
+                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="LayoutRoot" d:IsOptimized="True" />
+            </Storyboard>
+        </Canvas.Resources>
+        <!-- This is when I figure out how to swipe down and release animation to Refresh -->
+        <!--<Grid Width="480">
+            <TextBlock Text="Release to Refresh" FontSize="20" Foreground="Black" />
+        </Grid>-->
+        <Canvas CacheMode="BitmapCache" x:Name="LayoutRoot" Width="{Binding CanvasWidth}" VerticalAlignment="Stretch" Background="Transparent" Canvas.Left="{Binding NegativeScreenWidth}" Height="{Binding ScreenHeight}">
+            <!--<Border Width="{Binding ScreenWidth}" CacheMode="BitmapCache" Background="#FFFFFF" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="{Binding ActualHeight, ElementName=canvas}"/>-->
+            <views:HowToUse
+                x:Name="ucHowTo"
+                CacheMode="BitmapCache"
+                Margin="0,0,0,0"
+                Grid.Column="0"
+                Height="{Binding ScreenHeight}"
+                Width="{Binding ScreenWidth}"
+                DataContext="{Binding }"
+                />
+            
+            <views:CurrentForecast
+                x:Name="ucCurrentForecast"
+                CacheMode="BitmapCache"
+                Grid.Column="1"
+                Height="{Binding ScreenHeight}"
+                Width="{Binding ScreenWidth}"
+                DataContext="{Binding }"
+                /><!-- Margin="480,0,0,0"-->
+
+            <views:WeeklyForecast
+                x:Name="ucWeeklyForecast"
+                CacheMode="BitmapCache"
+                Grid.Column="2"
+                Height="{Binding ScreenHeight}"
+                Width="{Binding ScreenWidth}"
+                DataContext="{Binding }"
+                /><!-- Margin="960,0,0,0" -->
+        </Canvas>
+        <!-- Loading Animation with App Layout in Background -->
+        <Grid Name="loading" Width="{Binding ScreenWidth}" Height="{Binding ScreenHeight}" Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}">
+            <Rectangle
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Opacity="0.5"
+                Fill="White"
+                Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}"
+                />
+            <StackPanel 
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}"
+                >
+                <!--<TextBlock 
+                    Text="Loading..."
+                    Style="{StaticResource PhoneTextTitle2Style}"
+                    HorizontalAlignment="Center"
+                    Margin="20"
+                    Foreground="Black"
+                    />-->
+                <ProgressBar
+                    IsIndeterminate="{Binding Loaded, Converter={StaticResource bool2Inverse}}"
+                    />
+            </StackPanel>
+        </Grid>
+        <!--<ProgressBar
+            Width="{Binding ScreenWidth}"
+            IsIndeterminate="{Binding Loaded, Converter={StaticResource bool2Inverse}}"
+            Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}"
+            />-->
+    </Canvas>    
+    <!--<Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>-->
+        
+        <!--<ProgressBar
+                IsIndeterminate="True"
+                />-->
+        <!--TitlePanel contains the name of the application and page title-->
+        <!--<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock Text="Weather" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>-->
+
+        <!--<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0">
+            <TextBlock Text="Current Location" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Center" Margin="0,0"/>
+        </StackPanel>-->
+        
+        <!-- Release to Reload -->
+        <!--<Border Grid.Row="0" Background="White" />
+        <StackPanel
+            x:Name="ReleaseToReload"
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="10"
+            >
+            <Image
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="Icons/refresh.ico"
+                Height="64"
+                Width="64"
+                />
+            <TextBlock
+                Text="Release To Reload"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="12"
+                Foreground="Black"
+                Margin="0"
+                />
+        </StackPanel>-->
+
+        <!--ContentPanel -->
+        <!--<views:CurrentForecast
+            x:Name="ucCurrentForecast"
+            Grid.Row="2"
+            DataContext="{Binding }"
+            />
+        
+        <views:WeeklyForecast
+            x:Name="ucWeeklyForecast"
+            Grid.Row="2"
+            DataContext="{Binding }"
+            />-->
+        
+        <!-- Menu Bar -->
+        <!--<Grid x:Name="ToolMenu" Grid.Row="3" Margin="0" Visibility="{Binding ShowMenu, Converter={StaticResource bool2Vis}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="White" />
+            
+            <StackPanel
+                x:Name="ShowMaxMin"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Tap="ShowMaxMin_Tap"
+                Visibility="{Binding ElementName=ucCurrentForecast, Path=Visibility}"
+                >
+                <Image
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="Icons/more.ico"
+                    Height="64"
+                    Width="64"
+                    />
+                <TextBlock
+                    Text="Max/Min"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="Black"
+                    Margin="0"
+                    />
+            </StackPanel>
+            <StackPanel
+                x:Name="Current"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Tap="Weekly_Tap"
+                Visibility="{Binding ElementName=ucWeeklyForecast, Path=Visibility}"
+                >
+                <Image
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="Icons/arrowLeft.ico"
+                    Height="64"
+                    Width="64"
+                    />
+                <TextBlock
+                    Text="Current"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="Black"
+                    Margin="0"
+                    />
+            </StackPanel>
+            <StackPanel
+                x:Name="Reload"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Tap="Reload_Tap"
+                >
+                <Image
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="Icons/refresh.ico"
+                    Height="64"
+                    Width="64"
+                    />
+                <TextBlock
+                    Text="Reload"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="Black"
+                    Margin="0"
+                    />
+            </StackPanel>
+            <StackPanel
+                x:Name="Weekly"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Tap="Weekly_Tap"
+                Visibility="{Binding ElementName=ucCurrentForecast, Path=Visibility}"
+                >
+                <Image
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="Icons/calendar.ico"
+                    Height="64"
+                    Width="64"
+                    />
+                <TextBlock
+                    Text="Weekly"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="Black"
+                    Margin="0"
+                    />
+            </StackPanel>
+        </Grid>-->
+        <!-- Menu Bar End -->
+        
+        <!-- Loading Animation with App Layout in Background -->
+        <!--<Rectangle
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Opacity="0.5"
+            Fill="White"
+            Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}"
+            />
+        <StackPanel 
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Visibility="{Binding Loaded, Converter={StaticResource bool2VisInverse}}"
+            >
+            <TextBlock 
+                Text="Loading..."
+                Style="{StaticResource PhoneTextTitle2Style}"
+                HorizontalAlignment="Center"
+                Margin="20"
+                Foreground="Black"
+                />
+            <ProgressBar
+                IsIndeterminate="True"
+                />
+        </StackPanel>
+    </Grid>-->
+
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Minimized" Opacity="0.5">
+            <shell:ApplicationBarIconButton IconUri="/Icons/folder.png" Text="Cities"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/add.png" Text="Add City"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/feature.settings.png" Text="Settings"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+</phone:PhoneApplicationPage>
