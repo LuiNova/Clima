@@ -493,7 +493,7 @@ namespace WeatherApp
             {
                 MessageBox.Show(string.Format("There was an exception: ", ex.ToString()));
             }
-        }
+        } 
 
         public void ChangeTileData()
         {
