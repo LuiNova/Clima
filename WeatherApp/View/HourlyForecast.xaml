@@ -102,516 +102,104 @@
             <ColumnDefinition x:Name="column" Width="*" />
         </Grid.ColumnDefinitions>
         <Grid x:Name="ContentPanel" Grid.Row="0" Margin="0,0,0,0" Background="Transparent" >
-            <ItemsControl
-                x:Name="lstWeeklyForecast"
-                ItemsSource="{Binding Source={StaticResource cvsHourlyForecast}}"
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
                 >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                <ItemsControl
+                    x:Name="lstWeeklyForecast"
+                    ItemsSource="{Binding Source={StaticResource cvsHourlyForecast}}"
+                    >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid   
-                            x:Name="grdWeeklyForecast"
-                            Width="200"
-                            >
-                            <!-- {Binding ScreenWidth, Converter={StaticResource widthConvert}, ConverterParameter=3} -->
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <!--<RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />-->
-                                <RowDefinition Height="{Binding CurrentTemperature.IsSuperHot, Converter={StaticResource bool2Height}}" />
-                                <!-- Binding to a boolean if value lands in this area if it does converter will resturn 2* else * -->
-                                <RowDefinition Height="{Binding CurrentTemperature.IsHotter, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsABitHotter, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsHot, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsABitHot, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsWarmer, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsWarm, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsAdequateTemp, Converter={StaticResource bool2Height}}" />
-                                <!-- Adequate Temperature -->
-                                <RowDefinition Height="{Binding CurrentTemperature.IsCool, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsCooler, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsABitCold, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsCold, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsABitColder, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsColder, Converter={StaticResource bool2Height}}" />
-                                <RowDefinition Height="{Binding CurrentTemperature.IsSuperCold, Converter={StaticResource bool2Height}}" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Row Colors -->
-                            <Border Grid.Row="1" Grid.RowSpan="15" Background="White" />
-                            <Border Grid.Row="1" Background="{StaticResource warm7}" />
-                            <Border Grid.Row="2" Background="{StaticResource warm6}" />
-                            <Border Grid.Row="3" Background="{StaticResource warm5}" />
-                            <Border Grid.Row="4" Background="{StaticResource warm4}" />
-                            <Border Grid.Row="5" Background="{StaticResource warm3}" />
-                            <Border Grid.Row="6" Background="{StaticResource warm2}" />
-                            <Border Grid.Row="7" Background="{StaticResource warm}" />
-                            <Border Grid.Row="8" Background="{StaticResource white}" />
-                            <Border Grid.Row="9" Background="{StaticResource cool}" />
-                            <Border Grid.Row="10" Background="{StaticResource cool2}" />
-                            <Border Grid.Row="11" Background="{StaticResource cool3}" />
-                            <Border Grid.Row="12" Background="{StaticResource cool4}" />
-                            <Border Grid.Row="13" Background="{StaticResource cool5}" />
-                            <Border Grid.Row="14" Background="{StaticResource cool6}" />
-                            <Border Grid.Row="15" Background="{StaticResource cool7}" />
-                            <!--<Border Grid.Row="0" Grid.RowSpan="16" BorderThickness="0,0,1,0" BorderBrush="White"/>-->
-                            <!-- Row Colors End -->
-
-                            <!-- Data -->
-                            <TextBlock
-                                Grid.Row="0"
-                                Text="{Binding Date, StringFormat='{}{0:h:mm tt}'}"
-                                Foreground="White"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="5"
-                                />
-
-                            <StackPanel 
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsSuperHot, Converter={StaticResource bool2Vis}}"
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid   
+                                x:Name="grdWeeklyForecast"
+                                Height="120"
                                 >
+                                <!-- {Binding ScreenWidth, Converter={StaticResource widthConvert}, ConverterParameter=3} -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="Black" />-->
+                                <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Background="{Binding CurrentTemperature.BrushColorString}" />
+
+                                <!-- Data -->
+                                <!--<ItemsControl
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    ItemsSource="{Binding ForecastTime}"
+                                    VerticalAlignment="Center"
+                                    Foreground="White"
+                                    />-->
+
                                 <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="{Binding Date, StringFormat='{}{0:h tt}'}"
+                                    Foreground="White"
                                     HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
+                                    VerticalAlignment="Center"
+                                    Margin="5"
+                                    
                                     />
+                                <!--<TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="{Binding Date, StringFormat='{}{0:tt}'}"
+                                    Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="5"
+                                    />-->
+
                                 <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="{Binding ForecastDate}"
                                     Foreground="Black"
                                     FontSize="30"
                                     HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
 
-                            <StackPanel 
-                                Grid.Row="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsHotter, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsABitHotter, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="4"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsHot, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="5"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsABitHot, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="6"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsWarmer, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="7"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsWarm, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="8"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsAdequateTemp, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="9"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsCool, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="10"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsCooler, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="11"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsABitCold, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="12"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsCold, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="13"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsABitColder, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="14"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsColder, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel 
-                                Grid.Row="15"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Visibility="{Binding CurrentTemperature.IsSuperCold, Converter={StaticResource bool2Vis}}"
-                                >
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0"
-                                    />
-                                <TextBlock
-                                    Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
-                                    Foreground="Black"
-                                    FontSize="30"
-                                    HorizontalAlignment="Center"
-                                    />
-                                <TextBlock
-                                    Text="{Binding ForecastDate}"
-                                    Foreground="Black"
-                                    FontSize="14"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,5"
-                                    />
-                            </StackPanel>
-                            <!-- Data End -->
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Orientation="Vertical"
+                                    VerticalAlignment="Center"
+                                    >
+                                    <TextBlock
+                                        Text="{Binding Description}"
+                                        Foreground="Black"
+                                        FontSize="20"
+                                        HorizontalAlignment="Center"
+                                        />
+                                    <TextBlock
+                                        Text="{Binding CurrentTemperature.Temp, StringFormat='\{0:N0\}&#186;F'}"
+                                        Foreground="Black"
+                                        FontSize="50"
+                                        HorizontalAlignment="Center"
+                                        />
+                                </StackPanel>
+                                <!-- Data End -->
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>

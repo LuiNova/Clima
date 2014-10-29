@@ -191,13 +191,17 @@
                 Foreground="Black" 
                 FontSize="20"
                 />-->
-            <ScrollViewer
+            
+            <!--<ScrollViewer
                 Grid.Row="5"
                 Grid.Column="0"
-                HorizontalScrollBarVisibility="Auto"
-                >
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                >-->
                 <views:HourlyForecast
                     x:Name="ucHourlyForecast"
+                    Grid.Row="5"
+                    Grid.Column="0"
                     DataContext="{Binding }"
                     />
             
@@ -238,7 +242,7 @@
                     Margin="20,0,0,0"
                     />
             </StackPanel>-->
-            </ScrollViewer>
+            <!--</ScrollViewer>-->
             <TextBlock
                 Grid.Row="6"
                 Text="Powered by ForecastIO and World Weather Online"

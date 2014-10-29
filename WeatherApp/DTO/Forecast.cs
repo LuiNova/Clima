@@ -38,6 +38,11 @@ namespace WeatherApp.DTO
             get { return this.Date.DayOfWeek.ToString().Substring(0,2); }
         }
 
+        public string ForecastTime
+        {
+            get { return this.Date.ToString("htt"); }//string.Format("", this.Date); }
+        }
+
         public string ForecastDate
         {
             get

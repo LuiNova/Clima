@@ -122,11 +122,17 @@
     <Compile Include="View\HourlyForecast.xaml.cs">
       <DependentUpon>HourlyForecast.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HourlyForecastGraph.xaml.cs">
+      <DependentUpon>HourlyForecastGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HowToUse.xaml.cs">
       <DependentUpon>HowToUse.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WeeklyForecast.xaml.cs">
       <DependentUpon>WeeklyForecast.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WeeklyForecastGraph.xaml.cs">
+      <DependentUpon>WeeklyForecastGraph.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -146,11 +152,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\HourlyForecastGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HowToUse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WeeklyForecast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WeeklyForecastGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
